@@ -1,0 +1,24 @@
+<!-- templates/message_updates.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Message Updates</h1>
+  {% if message_updates %}
+    <ul>
+      {% for update in message_updates %}
+        <li>
+          {{ update.update_desc }}
+          {% if update.delivered %}
+            <span class="delivered">Delivered</span>
+          {% else %}
+            <span class="undelivered">Not delivered</span>
+          {% endif %}
+          <br>
+          <small>Updated on {{ update.timestamp }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No updates to display.</p>
+  {% endif %}
+{% endblock %}

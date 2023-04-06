@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Send a message</h1>
+<form method="post" action="#">
+    {% csrf_token %}
+    <label for="recipient">Recipient:</label>
+    <select id="recipient" name="recipient">
+        {% for user in users %}
+        <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select><br><br>
+    <label for="message">subaject:</label><br>
+    <input id="message" name="subject"><br><br>
+    <label for="message">Message:</label><br>
+        <input id="message" name="body"><br><br>
+    <input type="submit"  class="btn btn-primary" value="Send">
+</form>
+<script>
+    $(document).ready(function() {
+        $('#show-message-id').click(function() {
+            var messageId = "{{ message.id }}";
+            var popupHtml = '<div id="popup">' +
+                                '<p>Message ID: ' + messageId + '</p>' +
+                                '<button id="close-popup">Close</button>' +
+                            '</div>';
+            $('#popup-container').html(popupHtml);
+            $('#popup').fadeIn();
+            $('#close-popup').click(function() {
+                $('#popup').fadeOut();
+            });
+        });
+    });
+</script>
+{% endblock %}

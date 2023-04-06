@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}  
+  {% for message in received_messages %}
+ 
+          <h3>From: {{ message.sender.username }}</h3>
+          <h4>Subject: {{ message.subject }}</h4>
+          <h4>body: {{ message.body }}</h4>
+          <p>{{ message.message }}</p>
+          <p>{{ message.timestamp }}</p>
+          <p>{{message.id}}</p>
+          <label for="forward_to_user">Forward to:</label>
+          <select name="forward_to_user" id="forward_to_user">
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select><br><br>
+          <input type="checkbox" name="selected_messages" value="{{ message.id }} {{order_id}}">
+      <input type="submit" class="btn btn-primary" value="Send"><br><br>
+  
+  {% endfor %}
+</form>
+
+{% endblock %}
+
+

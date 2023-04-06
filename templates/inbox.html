@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table, th, tr, td {
+        border: 1px solid green;
+      }
+      th{
+        background:black;
+        color:white;
+        
+      }
+    </style>
+    <body>
+    <h2>Inbox</h2>
+    <table width="300" border="1">
+        <thead>
+            <tr>
+                <th align="center">Id</th>
+                <th align="center">From</th>
+                <th align="center">Subject</th>
+                <th align="center">file NO</th>
+                <th align="center">Date</th>
+                <th align="center">status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            
+            {% for message in count %}
+              <div class="message{% if message.status == 'unread' %} unread{% endif %}">
+                <tr {% if message.read_at %}class="read"{% endif %}>
+                    <td>{{message.id}}</td>
+                    <td>{{ message.sender.username }}</td>
+                    <td>{{ message.subject }}</td>
+                    <td>{{ message.body }}</td>
+                    <td>{{ message.timestamp }}</td>
+                    <td>{{message.status}}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
